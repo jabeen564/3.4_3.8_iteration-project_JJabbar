@@ -1,0 +1,327 @@
+/* === ROOT COLOR VARS === */
+:root {
+  --deep-burgundy: #3b1122; /* dark burgundy is used for borders, headings, and box outlines */
+  --vintage-gold: #c99a4e;  /* vintage gold is used for buttons, links, and highlighted borders */
+  --warm-cream: #faf6ee;    /* warm cream is used for the rich background */
+  --charcoal-text: #2c2523; /* charcoal text is used for readable paragraph text */
+  --muted-gold: #e2c083;    /* muted gold is used for subtle accents and lines */
+  --dark-accent: #210712;   /* dark accent is used for hover states and dark text */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* === RESET STUFF === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--warm-cream);
+  color: var(--charcoal-text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden; /* this line stops the page scrolling sideways */
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--deep-burgundy);
+}
+
+/* === NAV === */
+/* Holds the page navigation - sits across the top of every page, even before login */
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1.5rem 1rem;
+}
+
+.nav a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--deep-burgundy);
+  transition: color 0.3s ease;
+}
+
+/* this line underlines a nav link when the mouse is over it */
+.nav a:hover {
+  text-decoration: underline;
+  color: var(--vintage-gold);
+}
+
+/* this line underlines whichever page the person is currently on */
+.nav a.active {
+  text-decoration: underline;
+  color: var(--vintage-gold);
+}
+
+/* === LOGIN PAGE === */
+.login-page {
+  min-height: calc(100vh - 90px);
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding: 2rem 4rem 4rem 4rem;
+}
+
+/* === LOGIN LEFT SIDE (heading + form) === */
+.login-left {
+  flex: 1;
+  max-width: 520px;
+}
+
+.login-left h1 {
+  font-size: 2.6rem;
+  margin: 0 0 1rem 0;
+}
+
+.login-subtitle {
+  font-size: 1.1rem;
+  margin: 0 0 2.5rem 0;
+  color: var(--charcoal-text);
+}
+
+/* === LOGIN FORM === */
+.login-left form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-left label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.5px;
+  color: var(--deep-burgundy);
+}
+
+.login-left input[type="text"], .login-left input[type="password"] {
+  width: 100%;
+  height: 55px;
+  background-color: transparent;
+  border: 1px solid var(--deep-burgundy);
+  border-radius: 8px;
+  padding: 0 1.2rem;
+  margin-bottom: 1.8rem;
+  font-size: 1rem;
+  color: var(--charcoal-text);
+  outline: none;
+}
+
+/* this line changes the placeholder text colour */
+.login-left input::placeholder {
+  color: #887b74;
+}
+
+/* this line adds a border when the user selects an input */
+.login-left input[type="text"]:focus, .login-left input[type="password"]:focus {
+  border-color: var(--vintage-gold);
+}
+
+/* === PASSWORD FIELD (holds the password input and the show/hide icon) === */
+.password-field {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+
+/* takes the margin off the input since the wrapper above is handling the spacing now */
+.password-field input[type="password"], .password-field input[type="text"] {
+  margin-bottom: 0;
+  padding-right: 3rem; /* this line stops the typed password running under the eye icon */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--deep-burgundy);
+}
+
+/* === LOGIN BUTTON === */
+.login-left input[type="submit"] {
+  width: 100%;
+  height: 58px;
+  background-color: var(--vintage-gold);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* this line changes the button when the mouse is over it */
+.login-left input[type="submit"]:hover {
+  transform: translateY(-2px);
+  background-color: var(--dark-accent);
+}
+
+/* === ERROR MESSAGE === */
+.error {
+  text-align: center;
+  font-size: 0.95rem;
+  margin: 1.2rem 0 0 0;
+  color: #a82323;
+}
+
+/* === LOGIN IMAGE === */
+.login-image-box {
+  flex: 1;
+  max-width: 650px;
+  border: 2px solid var(--deep-burgundy);
+  border-radius: 12px;
+  overflow: hidden; /* this line keeps the image inside the rounded corners */
+  height: 520px;
+}
+
+.login-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === COPYRIGHT === */
+.copyright {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+  color: var(--charcoal-text);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .login-page {
+    flex-direction: column;
+    padding: 1rem 2rem 3rem 2rem;
+  }
+  .login-image-box {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    gap: 1.2rem;
+    padding: 1rem;
+  }
+  .login-left h1 {
+    font-size: 2rem;
+  }
+  .login-left input[type="text"], .login-left input[type="password"] {
+    height: 50px;
+  }
+}
+
+/* === MOBILE NAVIGATION === */
+.menu_toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu_toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 4px auto;
+  background: var(--deep-burgundy);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navigation_overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+}
+
+.navigation_locked {
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  /* this line keeps the normal navigation hidden until the menu is opened */
+  .nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(82vw, 320px);
+    height: 100vh;
+    padding: 5rem 1.5rem 2rem 1.5rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1.4rem;
+    background: var(--warm-cream);
+    border-bottom: none;
+    box-shadow: 4px 0 18px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    transform: translateX(-105%);
+    transition: transform 0.3s ease;
+    z-index: 1050;
+  }
+
+  .nav.navigation_open {
+    display: flex;
+    transform: translateX(0);
+  }
+
+  .nav a {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .menu_toggle {
+    display: block;
+  }
+
+  .navigation_overlay.overlay_open {
+    display: block;
+  }
+
+  /* this line turns the three lines into an X when the menu is open */
+  .menu_toggle.menu_open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu_toggle.menu_open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu_toggle.menu_open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* this line nudges the page content down a little so it doesn't sit right under the fixed menu button while scrolling */
+  .login-page {
+    padding-top: 5rem;
+  }
+}
