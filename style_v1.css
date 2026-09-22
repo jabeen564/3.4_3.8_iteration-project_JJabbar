@@ -1,18 +1,24 @@
 /* === ROOT COLOR VARS === */
 :root {
-  --deep-burgundy: #3b1122; /* dark burgundy is used for borders, headings, and box outlines */
-  --vintage-gold: #c99a4e;  /* vintage gold is used for buttons, links, and highlighted borders */
-  --warm-cream: #faf6ee;    /* warm cream is used for the rich background */
-  --charcoal-text: #2c2523; /* charcoal text is used for readable paragraph text */
-  --muted-gold: #e2c083;    /* muted gold is used for subtle accents and lines */
-  --dark-accent: #210712;   /* dark accent is used for hover states and dark text */
+  --bg-main: #18181d; /* Very dark grayish-black for the main page background */
+  --bg-secondary: #202027; /* Dark slate-black for cards, forms, and navigation backgrounds */
+  --bg-card: #282832; /* Slightly lighter charcoal black for elevated container elements */
+  --accent-plum: #cfa86e; /* Primary gold accent used for buttons, links, and highlights */
+  --accent-plum-hover: #e5be7a; /* Lighter warm gold for clear hover and focus feedback states */
+  --accent-gold: #cfa86e; /* Warm golden color for active page states, borders, and emphasis */
+  --border-muted: #383846; /* Subtle muted gray-purple for section borders and dividers */
+  --text-main: #e2e2ec; /* High-contrast off-white for primary page headings and readable text */
+  --text-muted: #b8b8cb; /* Soft light gray for body copy, paragraphs, and secondary content */
+  --text-dim: #7d7d93; /* Dimmed gray for placeholders, subtitles, and footer captions */
+  --font-heading: 'Playfair Display', Georgia, serif; /* Elegant serif font for titles and main headings */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Clean modern sans-serif font for body text */
 }
 
+/* === RESET STUFF === */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-/* === RESET STUFF === */
 html, body {
   height: 100%;
   margin: 0;
@@ -21,75 +27,84 @@ html, body {
 
 body {
   min-height: 100vh;
-  background-color: var(--warm-cream);
-  color: var(--charcoal-text);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  line-height: 1.6;
   overflow-x: hidden; /* this line stops the page scrolling sideways */
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Playfair Display', serif;
-  color: var(--deep-burgundy);
-}
-
 /* === NAV === */
-/* Holds the page navigation - sits across the top of every page, even before login */
+/* Holds the page navigation - sits across the top of every page */
 .nav {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
   padding: 1.5rem 1rem;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .nav a {
+  color: var(--text-muted);
   text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
   letter-spacing: 0.5px;
-  color: var(--deep-burgundy);
-  transition: color 0.3s ease;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
-/* this line underlines a nav link when the mouse is over it */
+/* this line highlights a nav link when the mouse is over it */
 .nav a:hover {
-  text-decoration: underline;
-  color: var(--vintage-gold);
+  color: var(--text-main);
+  background-color: rgba(207, 168, 110, 0.15);
+  border-bottom: 2px solid var(--accent-gold);
 }
 
-/* this line underlines whichever page the person is currently on */
+/* this line highlights whichever page the person is currently on */
 .nav a.active {
-  text-decoration: underline;
-  color: var(--vintage-gold);
+  color: var(--accent-gold);
+  border-bottom: 2px solid var(--accent-gold);
 }
 
 /* === LOGIN PAGE === */
 .login-page {
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 180px);
   width: 100%;
-  max-width: 1300px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4rem;
-  padding: 2rem 4rem 4rem 4rem;
+  padding: 3rem 2rem;
 }
 
 /* === LOGIN LEFT SIDE (heading + form) === */
 .login-left {
   flex: 1;
-  max-width: 520px;
+  max-width: 460px;
+  background-color: var(--bg-secondary);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-muted);
 }
 
 .login-left h1 {
-  font-size: 2.6rem;
-  margin: 0 0 1rem 0;
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-size: 2.2rem;
+  margin: 0 0 0.5rem 0;
 }
 
 .login-subtitle {
-  font-size: 1.1rem;
-  margin: 0 0 2.5rem 0;
-  color: var(--charcoal-text);
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin: 0 0 2rem 0;
 }
 
 /* === LOGIN FORM === */
@@ -99,94 +114,113 @@ h1, h2, h3, h4 {
 }
 
 .login-left label {
-  font-size: 0.9rem;
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-  letter-spacing: 0.5px;
-  color: var(--deep-burgundy);
+  color: var(--text-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
 }
 
-.login-left input[type="text"], .login-left input[type="password"] {
+.login-left input[type="text"],
+.login-left input[type="password"] {
   width: 100%;
-  height: 55px;
-  background-color: transparent;
-  border: 1px solid var(--deep-burgundy);
-  border-radius: 8px;
-  padding: 0 1.2rem;
-  margin-bottom: 1.8rem;
-  font-size: 1rem;
-  color: var(--charcoal-text);
+  height: 48px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-main);
   outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* this line changes the placeholder text colour */
 .login-left input::placeholder {
-  color: #887b74;
+  color: var(--text-dim);
 }
 
 /* this line adds a border when the user selects an input */
-.login-left input[type="text"]:focus, .login-left input[type="password"]:focus {
-  border-color: var(--vintage-gold);
+.login-left input[type="text"]:focus,
+.login-left input[type="password"]:focus {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 8px rgba(207, 168, 110, 0.3);
 }
 
 /* === PASSWORD FIELD (holds the password input and the show/hide icon) === */
 .password-field {
   position: relative;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
 }
 
 /* takes the margin off the input since the wrapper above is handling the spacing now */
-.password-field input[type="password"], .password-field input[type="text"] {
+.password-field input[type="password"],
+.password-field input[type="text"] {
   margin-bottom: 0;
   padding-right: 3rem; /* this line stops the typed password running under the eye icon */
 }
 
 .toggle-password {
   position: absolute;
-  right: 1.2rem;
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 1.1rem;
-  color: var(--deep-burgundy);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: var(--accent-gold);
 }
 
 /* === LOGIN BUTTON === */
 .login-left input[type="submit"] {
   width: 100%;
-  height: 58px;
-  background-color: var(--vintage-gold);
-  color: #ffffff;
+  height: 48px;
+  background-color: var(--accent-gold);
+  color: #18181d;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 0.5rem;
 }
 
 /* this line changes the button when the mouse is over it */
 .login-left input[type="submit"]:hover {
+  background-color: var(--accent-plum-hover);
   transform: translateY(-2px);
-  background-color: var(--dark-accent);
+  box-shadow: 0 6px 20px rgba(207, 168, 110, 0.4);
 }
 
 /* === ERROR MESSAGE === */
 .error {
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  color: #e57373;
   margin: 1.2rem 0 0 0;
-  color: #a82323;
+  padding: 0.6rem;
+  background-color: rgba(229, 115, 115, 0.1);
+  border-radius: 4px;
 }
 
 /* === LOGIN IMAGE === */
 .login-image-box {
   flex: 1;
-  max-width: 650px;
-  border: 2px solid var(--deep-burgundy);
+  max-width: 550px;
+  border: 1px solid var(--border-muted);
   border-radius: 12px;
   overflow: hidden; /* this line keeps the image inside the rounded corners */
-  height: 520px;
+  height: 480px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .login-image-box img {
@@ -199,33 +233,25 @@ h1, h2, h3, h4 {
 .copyright {
   text-align: center;
   font-size: 0.85rem;
-  margin-top: 3rem;
-  padding-bottom: 2rem;
-  color: var(--charcoal-text);
+  color: var(--text-dim);
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--border-muted);
+  background-color: var(--bg-main);
 }
 
 /* === RESPONSIVE === */
 @media (max-width: 900px) {
   .login-page {
     flex-direction: column;
-    padding: 1rem 2rem 3rem 2rem;
+    padding: 2rem 1.5rem;
+  }
+  .login-left {
+    max-width: 100%;
+    width: 100%;
   }
   .login-image-box {
     width: 100%;
     height: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav {
-    gap: 1.2rem;
-    padding: 1rem;
-  }
-  .login-left h1 {
-    font-size: 2rem;
-  }
-  .login-left input[type="text"], .login-left input[type="password"] {
-    height: 50px;
   }
 }
 
@@ -235,11 +261,12 @@ h1, h2, h3, h4 {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   padding: 0;
-  background: transparent;
-  border: none;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
   outline: none;
   cursor: pointer;
   z-index: 1100;
@@ -247,10 +274,10 @@ h1, h2, h3, h4 {
 
 .menu_toggle span {
   display: block;
-  width: 22px;
+  width: 20px;
   height: 2px;
   margin: 4px auto;
-  background: var(--deep-burgundy);
+  background: var(--text-main);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -258,7 +285,7 @@ h1, h2, h3, h4 {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 }
 
@@ -273,53 +300,53 @@ h1, h2, h3, h4 {
     position: fixed;
     top: 0;
     left: 0;
-    width: min(82vw, 320px);
+    width: min(80vw, 300px);
     height: 100vh;
     padding: 5rem 1.5rem 2rem 1.5rem;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 1.4rem;
-    background: var(--warm-cream);
-    border-bottom: none;
-    box-shadow: 4px 0 18px rgba(0,0,0,0.15);
+    gap: 1rem;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-muted);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
     transform: translateX(-105%);
     transition: transform 0.3s ease;
     z-index: 1050;
   }
-
+  
   .nav.navigation_open {
     display: flex;
     transform: translateX(0);
   }
-
+  
   .nav a {
     width: 100%;
     font-size: 1rem;
   }
-
+  
   .menu_toggle {
     display: block;
   }
-
+  
   .navigation_overlay.overlay_open {
     display: block;
   }
-
+  
   /* this line turns the three lines into an X when the menu is open */
   .menu_toggle.menu_open span:nth-child(1) {
     transform: translateY(6px) rotate(45deg);
   }
-
+  
   .menu_toggle.menu_open span:nth-child(2) {
     opacity: 0;
   }
-
+  
   .menu_toggle.menu_open span:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
   }
-
+  
   /* this line nudges the page content down a little so it doesn't sit right under the fixed menu button while scrolling */
   .login-page {
     padding-top: 5rem;
