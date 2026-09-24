@@ -1,0 +1,685 @@
+/* === ROOT COLOR VARS === */
+:root {
+  --bg-main: #18181d; /* Very dark grayish-black for the main page background */
+  --bg-secondary: #202027; /* Dark slate-black for cards, forms, and navigation backgrounds */
+  --bg-card: #282832; /* Slightly lighter charcoal black for elevated container elements */
+  --accent-plum: #cfa86e; /* Primary gold accent used for buttons, links, and highlights */
+  --accent-plum-hover: #e5be7a; /* Lighter warm gold for clear hover and focus feedback states */
+  --accent-gold: #cfa86e; /* Warm golden color for active page states, borders, and emphasis */
+  --border-muted: #383846; /* Subtle muted gray-purple for section borders and dividers */
+  --text-main: #e2e2ec; /* High-contrast off-white for primary page headings and readable text */
+  --text-muted: #b8b8cb; /* Soft light gray for body copy, paragraphs, and secondary content */
+  --text-dim: #7d7d93; /* Dimmed gray for placeholders, subtitles, and footer captions */
+  --font-heading: 'Playfair Display', Georgia, serif; /* Elegant serif font for titles and main headings */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Clean modern sans-serif font for body text */
+}
+
+/* === RESET STUFF === */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden; /* this line stops the page scrolling sideways */
+}
+
+/* === NAV === */
+/* Holds the page navigation - sits across the top of every page */
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1.5rem 1rem;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+/* this line underlines a nav link when the mouse is over it */
+.nav a:hover {
+  color: var(--text-main);
+  background-color: rgba(207, 168, 110, 0.15);
+  border-bottom: 2px solid var(--accent-gold);
+}
+
+/* this line underlines whichever page the person is currently on */
+.nav a.active {
+  color: var(--accent-gold);
+  border-bottom: 2px solid var(--accent-gold);
+}
+
+/* === CONTENT === */
+/* Holds the main page content */
+.content {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem 2rem;
+}
+
+/* === HERO SECTION === */
+.hero-section {
+  display: flex; /* this line puts the text and the images side by side */
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 500px;
+}
+
+.hero-text h1 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-size: 2.8rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-top: 1.5rem;
+}
+
+.hero-images {
+  flex: 1;
+  display: grid; /* this line lays the 4 images out in a 2x2 grid */
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  max-width: 520px;
+}
+
+.hero-img-box {
+  position: relative;
+  border: 1px solid var(--border-muted);
+  border-radius: 10px;
+  overflow: hidden; /* this line keeps the image inside the rounded corners */
+  height: 180px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* subtle overlay on the 1st and 4th images diagonally */
+.hero-img-box:nth-child(1)::after,
+.hero-img-box:nth-child(4)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.40);
+  pointer-events: none;
+}
+
+.hero-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === SECTION TITLES (shared by popular songs / artists) === */
+.popular-songs-section h2,
+.artists-section h2 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-size: 2.2rem;
+  text-align: center;
+  margin: 0;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--accent-gold);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+/* === POPULAR SONGS SECTION === */
+.popular-songs-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.songs-slider-container {
+  position: relative; /* this line lets the arrows sit on top of the slider */
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0;
+}
+
+/* === SONGS SLIDER TRACK === */
+.songs-slider {
+  display: flex; /* horizontal row of song slides */
+  transition: transform 0.5s ease-in-out; /* smooth slide animation */
+}
+
+/* === INDIVIDUAL SONG SLIDE === */
+.song-slide {
+  flex: 0 0 33.333%; /* shows 3 song cards at a time */
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.song-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* this line makes the enlarge on the active card smooth */
+}
+
+/* this line enlarges and highlights whichever song card is in the middle */
+.song-slide.active .song-card {
+  transform: scale(1.05);
+  border-color: var(--accent-gold);
+  box-shadow: 0 10px 25px rgba(207, 168, 110, 0.35);
+}
+
+.song-img-box {
+  border-radius: 8px;
+  overflow: hidden;
+  height: 180px;
+  margin-bottom: 1.2rem;
+}
+
+.song-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.song-card h3 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-size: 1.2rem;
+  margin: 0 0 0.4rem 0;
+}
+
+.song-artist {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+}
+
+.genre-tag {
+  display: inline-block;
+  background-color: rgba(207, 168, 110, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(207, 168, 110, 0.4);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.genre-tag:hover {
+  background-color: rgba(207, 168, 110, 0.3);
+}
+
+/* === SLIDER ARROWS (shared by songs slider and artists slider) === */
+.arrow {
+  position: absolute; /* placed over the slider */
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-muted);
+  font-size: 16px;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease; /* hover animation */
+  z-index: 10; /* keeps arrows above the slides */
+}
+
+.arrow:hover {
+  background: var(--accent-gold);
+  color: #18181d;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 12px rgba(207, 168, 110, 0.5);
+}
+
+.arrow.prev {
+  left: 5px; /* position left arrow */
+}
+
+.arrow.next {
+  right: 5px; /* position right arrow */
+}
+
+/* === SOUND CATEGORIES SECTION === */
+.sound-categories-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border-muted);
+}
+
+/* the heading that introduces the whole genres section, centered above everything */
+.categories-intro {
+  text-align: center;
+}
+
+/* the eyebrow is the main heading here, so it's bigger and bolder than the h2 underneath */
+.categories-intro .eyebrow {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+
+/* this line keeps the sentence on one line instead of wrapping, and keeps it smaller since the eyebrow is now the main heading */
+.categories-intro h2 {
+  color: var(--accent-gold);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 14px;
+  margin: 1rem 0 0 0;
+}
+
+/* === DIVIDER (used under the genres heading) === */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.2rem auto 0 auto;
+  max-width: 350px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-muted); /* this line draws the thin line either side */
+}
+
+.divider-diamond {
+  color: var(--accent-gold);
+  font-size: 1rem;
+}
+
+/* the row underneath the heading - accordion and text on the left, images on the right */
+.categories-row {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+  margin-top: 3rem;
+}
+
+.genres-list {
+  flex: 1;
+}
+
+.genres-list p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* === GENRE TAGS (toggled open/closed by genre Toggle.js) === */
+.genre-tags {
+  display: flex;
+  flex-direction: column; /* this line stacks each genre as a full-width row */
+  gap: 0.8rem;
+}
+
+.genre-item {
+  width: 100%;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-muted);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.genre-item:hover {
+  border-color: rgba(207, 168, 110, 0.6);
+}
+
+.genre-item.open {
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 15px rgba(207, 168, 110, 0.2);
+}
+
+.genre-question {
+  cursor: pointer; /* this line shows a pointer so it's clear the row is clickable */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  height: 52px; /* strict consistency across all 4 headers */
+  box-sizing: border-box;
+}
+
+.genre-badge {
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.genre-arrow {
+  color: var(--accent-gold);
+  transition: transform 0.3s ease; /* this line smoothly rotates the plus when opened */
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* this line turns the plus into a cross when the genre item is open */
+.genre-item.open .genre-arrow {
+  transform: rotate(45deg);
+}
+
+.genre-answer {
+  display: none; /* hidden until genre Toggle.js opens it */
+  padding: 1rem 1.2rem;
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-muted);
+}
+
+.genre-answer p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* === CATEGORIES IMAGES === */
+.categories-images {
+  flex: 1;
+  display: flex; /* this line puts the two image columns side by side */
+  gap: 1.2rem;
+}
+
+/* each column stacks its 2 images on top of each other */
+.cat-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.cat-img-box {
+  border: 1px solid var(--border-muted);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.cat-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* fixed pixel dimensions enforce clean visual balance across the 2x2 grid */
+.cat-col:first-child .cat-img-box:first-child { height: 240px; }
+.cat-col:first-child .cat-img-box:last-child { height: 160px; }
+.cat-col:last-child .cat-img-box:first-child { height: 160px; }
+.cat-col:last-child .cat-img-box:last-child { height: 240px; }
+
+/* === ARTISTS SECTION === */
+.artists-section {
+  text-align: center;
+  padding-top: 5rem;
+}
+
+/* the window the carousel sits inside - stretched out to use the full content width */
+.artists-carousel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-top: 2rem;
+}
+
+/* Cover Flow arrangement positioning */
+.artist-slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 300px;
+  margin-top: -150px;
+  margin-left: -120px;
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.5s ease, opacity 0.5s ease, z-index 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.artist-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* readable background strip behind Explore More Artists names */
+.artist-slide h4 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.8rem;
+  background: linear-gradient(to top, rgba(20, 20, 26, 0.95), rgba(20, 20, 26, 0.6) 70%, transparent);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* === NAVIGATION DOTS UNDER THE ARTIST CAROUSEL === */
+.dots {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.dot {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  margin: 0 5px;
+  background-color: var(--border-muted);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot:hover {
+  background-color: var(--accent-gold);
+}
+
+/* this line lights up whichever dot matches the current artist */
+.dot.active {
+  background-color: var(--accent-gold);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* === COPYRIGHT === */
+.copyright {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--border-muted);
+  margin-top: 4rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .hero-section {
+    flex-direction: column; /* this line stacks the hero text above the images on smaller screens */
+  }
+  .categories-row {
+    flex-direction: column;
+  }
+  .song-slide {
+    flex: 0 0 100%; /* shows 1 song card at a time on smaller screens */
+  }
+  .hero-text, .hero-images {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 2rem 1rem;
+  }
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+  .artists-carousel {
+    height: 320px;
+  }
+  .artist-slide {
+    width: 180px;
+    height: 230px;
+    margin-top: -115px;
+    margin-left: -90px;
+  }
+}
+
+/* === MOBILE NAVIGATION === */
+.menu_toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu_toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 4px auto;
+  background: var(--text-main);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navigation_overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.navigation_locked {
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  /* this line keeps the normal navigation hidden until the menu is opened */
+  .nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(80vw, 300px);
+    height: 100vh;
+    padding: 5rem 1.5rem 2rem 1.5rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-muted);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    transform: translateX(-105%);
+    transition: transform 0.3s ease;
+    z-index: 1050;
+  }
+  
+  .nav.navigation_open {
+    display: flex;
+    transform: translateX(0);
+  }
+  
+  .nav a {
+    width: 100%;
+    font-size: 1rem;
+  }
+  
+  .menu_toggle {
+    display: block;
+  }
+  
+  .navigation_overlay.overlay_open {
+    display: block;
+  }
+  
+  /* this line turns the three lines into an X when the menu is open */
+  .menu_toggle.menu_open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  
+  .menu_toggle.menu_open span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu_toggle.menu_open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+  
+  /* this line nudges the page content down a little so it doesn't sit right under the fixed menu button while scrolling */
+  .content {
+    padding-top: 5rem;
+  }
+}
